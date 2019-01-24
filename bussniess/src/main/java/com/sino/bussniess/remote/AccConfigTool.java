@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(name= "accConfig")
 public interface AccConfigTool {
-    @RequestMapping(value="/accconfig/tool")
+    @RequestMapping(value="/tool/relationcheck")
     public String checkRiskcodeToAccType(@RequestParam("String") String riskcode,String acctype);
 }

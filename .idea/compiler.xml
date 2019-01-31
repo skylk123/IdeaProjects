@@ -9,8 +9,12 @@
         <module name="accconfig" />
         <module name="accengin" />
         <module name="bussniess" />
-        <module name="eureka" />
+        <module name="demo" />
+        <module name="entity" />
         <module name="file" />
+        <module name="monitor" />
+        <module name="register" />
+        <module name="sync" />
         <module name="test" />
       </profile>
     </annotationProcessing>
@@ -19,8 +23,12 @@
       <module name="accengin" target="1.8" />
       <module name="bussniess" target="1.8" />
       <module name="demo" target="1.8" />
+      <module name="entity" target="1.8" />
       <module name="eureka" target="1.8" />
       <module name="file" target="1.8" />
+      <module name="monitor" target="1.8" />
+      <module name="register" target="1.8" />
+      <module name="sync" target="1.8" />
       <module name="test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
@@ -30,8 +38,12 @@
       <module name="accengin" options="-parameters" />
       <module name="bussniess" options="-parameters" />
       <module name="demo" options="-parameters" />
+      <module name="entity" options="-parameters" />
       <module name="eureka" options="-parameters" />
       <module name="file" options="-parameters" />
+      <module name="monitor" options="-parameters" />
+      <module name="register" options="-parameters" />
+      <module name="sync" options="-parameters" />
       <module name="test" options="-parameters" />
     </option>
   </component>

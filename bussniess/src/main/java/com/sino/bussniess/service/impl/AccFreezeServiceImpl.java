@@ -4,7 +4,9 @@ import com.sino.bussniess.entity.AccountFreeze;
 import com.sino.bussniess.repository.AccountFreezeRepository;
 import com.sino.bussniess.service.AccFreezeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AccFreezeServiceImpl implements AccFreezeService {
     @Autowired
     private AccountFreezeRepository repository;

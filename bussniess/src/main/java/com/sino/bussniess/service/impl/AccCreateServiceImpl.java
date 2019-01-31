@@ -10,8 +10,9 @@ import com.sino.bussniess.repository.PolicyAccInfoRepository;
 import com.sino.bussniess.service.AccCreateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.stereotype.Service;
 import org.springframework.util.concurrent.ListenableFuture;
-
+@Service
 public class AccCreateServiceImpl implements AccCreateService {
 
     @Autowired

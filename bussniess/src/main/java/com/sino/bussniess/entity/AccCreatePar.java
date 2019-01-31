@@ -1,6 +1,10 @@
 package com.sino.bussniess.entity;
 
+import com.alibaba.fastjson.JSON;
 import org.springframework.data.annotation.Id;
+import org.springframework.stereotype.Controller;
+
+import java.util.Date;
 
 public class AccCreatePar {
     @Id
@@ -66,5 +70,17 @@ public class AccCreatePar {
 
     public void setRiskcode(String riskcode) {
         this.riskcode = riskcode;
+    }
+
+    public static void main(String args[]){
+        AccCreatePar t = new AccCreatePar();
+        t.setRiskcode("1001");
+        t.setAcctype("1");
+        t.setPolicyno("10000000000000000001");
+        t.setProductno("20000000000000000001");
+        t.setMoney(100000);
+        t.setOperator("test");
+        t.setOperatorDate((new Date()).toString());
+        System.out.println(JSON.toJSONString(t));
     }
 }

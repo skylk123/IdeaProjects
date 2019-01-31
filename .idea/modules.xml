@@ -6,8 +6,12 @@
       <module fileurl="file://$PROJECT_DIR$/accconfig/accconfig.iml" filepath="$PROJECT_DIR$/accconfig/accconfig.iml" />
       <module fileurl="file://$PROJECT_DIR$/accengin/accengin.iml" filepath="$PROJECT_DIR$/accengin/accengin.iml" />
       <module fileurl="file://$PROJECT_DIR$/bussniess/bussniess.iml" filepath="$PROJECT_DIR$/bussniess/bussniess.iml" />
-      <module fileurl="file://$PROJECT_DIR$/eureka/eureka.iml" filepath="$PROJECT_DIR$/eureka/eureka.iml" />
+      <module fileurl="file://$PROJECT_DIR$/demo/demo.iml" filepath="$PROJECT_DIR$/demo/demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/entity/entity.iml" filepath="$PROJECT_DIR$/entity/entity.iml" />
       <module fileurl="file://$PROJECT_DIR$/file/file.iml" filepath="$PROJECT_DIR$/file/file.iml" />
+      <module fileurl="file://$PROJECT_DIR$/monitor/monitor.iml" filepath="$PROJECT_DIR$/monitor/monitor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/register/register.iml" filepath="$PROJECT_DIR$/register/register.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sync/sync.iml" filepath="$PROJECT_DIR$/sync/sync.iml" />
       <module fileurl="file://$PROJECT_DIR$/test/test.iml" filepath="$PROJECT_DIR$/test/test.iml" />
     </modules>
   </component>

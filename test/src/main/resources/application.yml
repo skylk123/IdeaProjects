@@ -1,0 +1,12 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://admin:123456@localhost:1111/eureka/
+server:
+  port: 8764
+spring:
+  application:
+    name: test
+ribbon:
+  eureka:
+    enabled: true

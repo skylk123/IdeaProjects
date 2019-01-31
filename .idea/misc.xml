@@ -9,10 +9,14 @@
         <option value="$PROJECT_DIR$/test/pom.xml" />
         <option value="$PROJECT_DIR$/mongo/pom.xml" />
         <option value="$PROJECT_DIR$/accengin/pom.xml" />
-        <option value="$PROJECT_DIR$/eureka/pom.xml" />
         <option value="$PROJECT_DIR$/accconfig/pom.xml" />
         <option value="$PROJECT_DIR$/bussniess/pom.xml" />
         <option value="$PROJECT_DIR$/file/pom.xml" />
+        <option value="$PROJECT_DIR$/sync/pom.xml" />
+        <option value="$PROJECT_DIR$/monitor/pom.xml" />
+        <option value="$PROJECT_DIR$/entity/pom.xml" />
+        <option value="$PROJECT_DIR$/demo/pom.xml" />
+        <option value="$PROJECT_DIR$/register/pom.xml" />
       </list>
     </option>
   </component>

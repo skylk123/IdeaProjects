@@ -9,12 +9,13 @@ spring:
       port: 27017
       database: test
       host: 127.0.0.1
-eureka:
-  client:
-    service-url:
-      defaultZone: http://admin:123456@localhost:8111/eureka/
   kafka:
     producer:
       bootstrap-servers: 10.2.8.108:9092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://admin:123456@localhost:8111/eureka/

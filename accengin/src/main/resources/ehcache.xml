@@ -5,7 +5,7 @@
     <defaultCache eternal="false" maxElementsInMemory="1000" overflowToDisk="false" diskPersistent="false"
                   timeToIdleSeconds="0" timeToLiveSeconds="0" memoryStoreEvictionPolicy="LRU" />
 
-    <cache name="demo" eternal="false" maxElementsInMemory="500" overflowToDisk="false" diskPersistent="false"
+    <cache name="accrelation" eternal="false" maxElementsInMemory="500" overflowToDisk="false" diskPersistent="false"
            timeToIdleSeconds="0" timeToLiveSeconds="0" memoryStoreEvictionPolicy="LRU" />
 
 </ehcache>

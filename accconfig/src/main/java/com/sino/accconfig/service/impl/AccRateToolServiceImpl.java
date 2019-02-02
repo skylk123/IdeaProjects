@@ -1,6 +1,6 @@
 package com.sino.accconfig.service.impl;
 
-import com.sino.accconfig.dao.AccRateMapper;
+import com.sino.accconfig.mapper.AccRateMapper;
 import com.sino.accconfig.model.AccRate;
 import com.sino.accconfig.model.AccRateExample;
 import com.sino.accconfig.service.AccRateToolService;

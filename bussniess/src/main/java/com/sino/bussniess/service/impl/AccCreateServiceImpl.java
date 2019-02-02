@@ -2,12 +2,12 @@ package com.sino.bussniess.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.sino.bussniess.common.ResultTool;
-import com.sino.bussniess.entity.AccCreatePar;
 import com.sino.bussniess.entity.AccInfo;
 import com.sino.bussniess.entity.PolicyAccInfo;
 import com.sino.bussniess.remote.AccConfigTool;
 import com.sino.bussniess.repository.PolicyAccInfoRepository;
 import com.sino.bussniess.service.AccCreateService;
+import com.sino.entity.parameter.AccCreatePar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -36,12 +36,11 @@ public class AccCreateServiceImpl implements AccCreateService {
         {
             return ResultTool.fail("1002", "险种不能添加此账户类型");
         }
-        info = new AccInfo();
-
         //MQ消息发送
-        ListenableFuture future = kafkaTemplate.send("acc_create", JSON.toJSON(info).toString());
+        ListenableFuture future = kafkaTemplate.send("acc_create", JSON.toJSON(par).toString());
         future.addCallback(o -> System.out.println("sendd-消息发送成功：" ), throwable -> System.out.println("消息发送失败："));
 
         return ResultTool.succ("创建成功");
     }
+
 }

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sino.file.mapper.BusinessFileMapper" >
+  <resultMap id="BaseResultMap" type="com.sino.file.model.BusinessFile" >
+    <id column="BusinessNo" property="businessno" jdbcType="VARCHAR" />
+    <result column="AccNo" property="accno" jdbcType="VARCHAR" />
+    <result column="OperatType" property="operattype" jdbcType="VARCHAR" />
+    <result column="Money" property="money" jdbcType="DECIMAL" />
+    <result column="Operator" property="operator" jdbcType="VARCHAR" />
+    <result column="MakeDate" property="makedate" jdbcType="DATE" />
+    <result column="Chel" property="chel" jdbcType="VARCHAR" />
+    <result column="FileDate" property="filedate" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    BusinessNo, AccNo, OperatType, Money, Operator, MakeDate, Chel, FileDate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sino.file.model.BusinessFileExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from businessfile
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from businessfile
+    where BusinessNo = #{businessno,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from businessfile
+    where BusinessNo = #{businessno,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sino.file.model.BusinessFileExample" >
+    delete from businessfile
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sino.file.model.BusinessFile" >
+    <selectKey resultType="java.lang.String" keyProperty="businessno" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into businessfile (AccNo, OperatType, Money, 
+      Operator, MakeDate, Chel, 
+      FileDate)
+    values (#{accno,jdbcType=VARCHAR}, #{operattype,jdbcType=VARCHAR}, #{money,jdbcType=DECIMAL}, 
+      #{operator,jdbcType=VARCHAR}, #{makedate,jdbcType=DATE}, #{chel,jdbcType=VARCHAR}, 
+      #{filedate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sino.file.model.BusinessFile" >
+    <selectKey resultType="java.lang.String" keyProperty="businessno" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into businessfile
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="accno != null" >
+        AccNo,
+      </if>
+      <if test="operattype != null" >
+        OperatType,
+      </if>
+      <if test="money != null" >
+        Money,
+      </if>
+      <if test="operator != null" >
+        Operator,
+      </if>
+      <if test="makedate != null" >
+        MakeDate,
+      </if>
+      <if test="chel != null" >
+        Chel,
+      </if>
+      <if test="filedate != null" >
+        FileDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="accno != null" >
+        #{accno,jdbcType=VARCHAR},
+      </if>
+      <if test="operattype != null" >
+        #{operattype,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="makedate != null" >
+        #{makedate,jdbcType=DATE},
+      </if>
+      <if test="chel != null" >
+        #{chel,jdbcType=VARCHAR},
+      </if>
+      <if test="filedate != null" >
+        #{filedate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sino.file.model.BusinessFileExample" resultType="java.lang.Integer" >
+    select count(*) from businessfile
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update businessfile
+    <set >
+      <if test="record.businessno != null" >
+        BusinessNo = #{record.businessno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accno != null" >
+        AccNo = #{record.accno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operattype != null" >
+        OperatType = #{record.operattype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.money != null" >
+        Money = #{record.money,jdbcType=DECIMAL},
+      </if>
+      <if test="record.operator != null" >
+        Operator = #{record.operator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.makedate != null" >
+        MakeDate = #{record.makedate,jdbcType=DATE},
+      </if>
+      <if test="record.chel != null" >
+        Chel = #{record.chel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filedate != null" >
+        FileDate = #{record.filedate,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update businessfile
+    set BusinessNo = #{record.businessno,jdbcType=VARCHAR},
+      AccNo = #{record.accno,jdbcType=VARCHAR},
+      OperatType = #{record.operattype,jdbcType=VARCHAR},
+      Money = #{record.money,jdbcType=DECIMAL},
+      Operator = #{record.operator,jdbcType=VARCHAR},
+      MakeDate = #{record.makedate,jdbcType=DATE},
+      Chel = #{record.chel,jdbcType=VARCHAR},
+      FileDate = #{record.filedate,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sino.file.model.BusinessFile" >
+    update businessfile
+    <set >
+      <if test="accno != null" >
+        AccNo = #{accno,jdbcType=VARCHAR},
+      </if>
+      <if test="operattype != null" >
+        OperatType = #{operattype,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        Money = #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="operator != null" >
+        Operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="makedate != null" >
+        MakeDate = #{makedate,jdbcType=DATE},
+      </if>
+      <if test="chel != null" >
+        Chel = #{chel,jdbcType=VARCHAR},
+      </if>
+      <if test="filedate != null" >
+        FileDate = #{filedate,jdbcType=DATE},
+      </if>
+    </set>
+    where BusinessNo = #{businessno,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sino.file.model.BusinessFile" >
+    update businessfile
+    set AccNo = #{accno,jdbcType=VARCHAR},
+      OperatType = #{operattype,jdbcType=VARCHAR},
+      Money = #{money,jdbcType=DECIMAL},
+      Operator = #{operator,jdbcType=VARCHAR},
+      MakeDate = #{makedate,jdbcType=DATE},
+      Chel = #{chel,jdbcType=VARCHAR},
+      FileDate = #{filedate,jdbcType=DATE}
+    where BusinessNo = #{businessno,jdbcType=VARCHAR}
+  </update>
+</mapper>

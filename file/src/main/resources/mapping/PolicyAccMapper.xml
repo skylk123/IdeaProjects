@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sino.file.mapper.PolicyAccMapper" >
+  <resultMap id="BaseResultMap" type="com.sino.file.model.PolicyAcc" >
+    <id column="AccNo" property="accno" jdbcType="VARCHAR" />
+    <result column="PolicyNo" property="policyno" jdbcType="VARCHAR" />
+    <result column="ProductNo" property="productno" jdbcType="VARCHAR" />
+    <result column="CostNo" property="costno" jdbcType="VARCHAR" />
+    <result column="AccType" property="acctype" jdbcType="VARCHAR" />
+    <result column="AccState" property="accstate" jdbcType="VARCHAR" />
+    <result column="BalanceDate" property="balancedate" jdbcType="DATE" />
+    <result column="BalanceMoney" property="balancemoney" jdbcType="DECIMAL" />
+    <result column="Principal" property="principal" jdbcType="DECIMAL" />
+    <result column="Interest" property="interest" jdbcType="DECIMAL" />
+    <result column="CreateDate" property="createdate" jdbcType="DATE" />
+    <result column="DestoryDate" property="destorydate" jdbcType="DATE" />
+    <result column="ModifyDate" property="modifydate" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    AccNo, PolicyNo, ProductNo, CostNo, AccType, AccState, BalanceDate, BalanceMoney, 
+    Principal, Interest, CreateDate, DestoryDate, ModifyDate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sino.file.model.PolicyAccExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from policyacc
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from policyacc
+    where AccNo = #{accno,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from policyacc
+    where AccNo = #{accno,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sino.file.model.PolicyAccExample" >
+    delete from policyacc
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sino.file.model.PolicyAcc" >
+    <selectKey resultType="java.lang.String" keyProperty="accno" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into policyacc (PolicyNo, ProductNo, CostNo, 
+      AccType, AccState, BalanceDate, 
+      BalanceMoney, Principal, Interest, 
+      CreateDate, DestoryDate, ModifyDate
+      )
+    values (#{policyno,jdbcType=VARCHAR}, #{productno,jdbcType=VARCHAR}, #{costno,jdbcType=VARCHAR}, 
+      #{acctype,jdbcType=VARCHAR}, #{accstate,jdbcType=VARCHAR}, #{balancedate,jdbcType=DATE}, 
+      #{balancemoney,jdbcType=DECIMAL}, #{principal,jdbcType=DECIMAL}, #{interest,jdbcType=DECIMAL}, 
+      #{createdate,jdbcType=DATE}, #{destorydate,jdbcType=DATE}, #{modifydate,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sino.file.model.PolicyAcc" >
+    <selectKey resultType="java.lang.String" keyProperty="accno" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into policyacc
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="policyno != null" >
+        PolicyNo,
+      </if>
+      <if test="productno != null" >
+        ProductNo,
+      </if>
+      <if test="costno != null" >
+        CostNo,
+      </if>
+      <if test="acctype != null" >
+        AccType,
+      </if>
+      <if test="accstate != null" >
+        AccState,
+      </if>
+      <if test="balancedate != null" >
+        BalanceDate,
+      </if>
+      <if test="balancemoney != null" >
+        BalanceMoney,
+      </if>
+      <if test="principal != null" >
+        Principal,
+      </if>
+      <if test="interest != null" >
+        Interest,
+      </if>
+      <if test="createdate != null" >
+        CreateDate,
+      </if>
+      <if test="destorydate != null" >
+        DestoryDate,
+      </if>
+      <if test="modifydate != null" >
+        ModifyDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="policyno != null" >
+        #{policyno,jdbcType=VARCHAR},
+      </if>
+      <if test="productno != null" >
+        #{productno,jdbcType=VARCHAR},
+      </if>
+      <if test="costno != null" >
+        #{costno,jdbcType=VARCHAR},
+      </if>
+      <if test="acctype != null" >
+        #{acctype,jdbcType=VARCHAR},
+      </if>
+      <if test="accstate != null" >
+        #{accstate,jdbcType=VARCHAR},
+      </if>
+      <if test="balancedate != null" >
+        #{balancedate,jdbcType=DATE},
+      </if>
+      <if test="balancemoney != null" >
+        #{balancemoney,jdbcType=DECIMAL},
+      </if>
+      <if test="principal != null" >
+        #{principal,jdbcType=DECIMAL},
+      </if>
+      <if test="interest != null" >
+        #{interest,jdbcType=DECIMAL},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=DATE},
+      </if>
+      <if test="destorydate != null" >
+        #{destorydate,jdbcType=DATE},
+      </if>
+      <if test="modifydate != null" >
+        #{modifydate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sino.file.model.PolicyAccExample" resultType="java.lang.Integer" >
+    select count(*) from policyacc
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update policyacc
+    <set >
+      <if test="record.accno != null" >
+        AccNo = #{record.accno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.policyno != null" >
+        PolicyNo = #{record.policyno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productno != null" >
+        ProductNo = #{record.productno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.costno != null" >
+        CostNo = #{record.costno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.acctype != null" >
+        AccType = #{record.acctype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accstate != null" >
+        AccState = #{record.accstate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.balancedate != null" >
+        BalanceDate = #{record.balancedate,jdbcType=DATE},
+      </if>
+      <if test="record.balancemoney != null" >
+        BalanceMoney = #{record.balancemoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.principal != null" >
+        Principal = #{record.principal,jdbcType=DECIMAL},
+      </if>
+      <if test="record.interest != null" >
+        Interest = #{record.interest,jdbcType=DECIMAL},
+      </if>
+      <if test="record.createdate != null" >
+        CreateDate = #{record.createdate,jdbcType=DATE},
+      </if>
+      <if test="record.destorydate != null" >
+        DestoryDate = #{record.destorydate,jdbcType=DATE},
+      </if>
+      <if test="record.modifydate != null" >
+        ModifyDate = #{record.modifydate,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update policyacc
+    set AccNo = #{record.accno,jdbcType=VARCHAR},
+      PolicyNo = #{record.policyno,jdbcType=VARCHAR},
+      ProductNo = #{record.productno,jdbcType=VARCHAR},
+      CostNo = #{record.costno,jdbcType=VARCHAR},
+      AccType = #{record.acctype,jdbcType=VARCHAR},
+      AccState = #{record.accstate,jdbcType=VARCHAR},
+      BalanceDate = #{record.balancedate,jdbcType=DATE},
+      BalanceMoney = #{record.balancemoney,jdbcType=DECIMAL},
+      Principal = #{record.principal,jdbcType=DECIMAL},
+      Interest = #{record.interest,jdbcType=DECIMAL},
+      CreateDate = #{record.createdate,jdbcType=DATE},
+      DestoryDate = #{record.destorydate,jdbcType=DATE},
+      ModifyDate = #{record.modifydate,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sino.file.model.PolicyAcc" >
+    update policyacc
+    <set >
+      <if test="policyno != null" >
+        PolicyNo = #{policyno,jdbcType=VARCHAR},
+      </if>
+      <if test="productno != null" >
+        ProductNo = #{productno,jdbcType=VARCHAR},
+      </if>
+      <if test="costno != null" >
+        CostNo = #{costno,jdbcType=VARCHAR},
+      </if>
+      <if test="acctype != null" >
+        AccType = #{acctype,jdbcType=VARCHAR},
+      </if>
+      <if test="accstate != null" >
+        AccState = #{accstate,jdbcType=VARCHAR},
+      </if>
+      <if test="balancedate != null" >
+        BalanceDate = #{balancedate,jdbcType=DATE},
+      </if>
+      <if test="balancemoney != null" >
+        BalanceMoney = #{balancemoney,jdbcType=DECIMAL},
+      </if>
+      <if test="principal != null" >
+        Principal = #{principal,jdbcType=DECIMAL},
+      </if>
+      <if test="interest != null" >
+        Interest = #{interest,jdbcType=DECIMAL},
+      </if>
+      <if test="createdate != null" >
+        CreateDate = #{createdate,jdbcType=DATE},
+      </if>
+      <if test="destorydate != null" >
+        DestoryDate = #{destorydate,jdbcType=DATE},
+      </if>
+      <if test="modifydate != null" >
+        ModifyDate = #{modifydate,jdbcType=DATE},
+      </if>
+    </set>
+    where AccNo = #{accno,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sino.file.model.PolicyAcc" >
+    update policyacc
+    set PolicyNo = #{policyno,jdbcType=VARCHAR},
+      ProductNo = #{productno,jdbcType=VARCHAR},
+      CostNo = #{costno,jdbcType=VARCHAR},
+      AccType = #{acctype,jdbcType=VARCHAR},
+      AccState = #{accstate,jdbcType=VARCHAR},
+      BalanceDate = #{balancedate,jdbcType=DATE},
+      BalanceMoney = #{balancemoney,jdbcType=DECIMAL},
+      Principal = #{principal,jdbcType=DECIMAL},
+      Interest = #{interest,jdbcType=DECIMAL},
+      CreateDate = #{createdate,jdbcType=DATE},
+      DestoryDate = #{destorydate,jdbcType=DATE},
+      ModifyDate = #{modifydate,jdbcType=DATE}
+    where AccNo = #{accno,jdbcType=VARCHAR}
+  </update>
+</mapper>

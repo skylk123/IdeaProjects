@@ -9,7 +9,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableDiscoveryClient
 @SpringBootApplication
 @EnableFeignClients
-@MapperScan("com.sino.accconfig.dao")
+@MapperScan("com.sino.accconfig.mapper")
 public class AccconfigApplication {
 
     public static void main(String[] args) {

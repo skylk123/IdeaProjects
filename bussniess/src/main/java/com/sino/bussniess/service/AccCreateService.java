@@ -1,7 +1,7 @@
 package com.sino.bussniess.service;
 
-import com.sino.bussniess.entity.AccCreatePar;
-import org.springframework.stereotype.Service;
+
+import com.sino.entity.parameter.AccCreatePar;
 
 public interface AccCreateService {
     public String accCreate(AccCreatePar par);

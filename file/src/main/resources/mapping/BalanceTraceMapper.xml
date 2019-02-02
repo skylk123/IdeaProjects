@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sino.file.mapper.BalanceTraceMapper" >
+  <resultMap id="BaseResultMap" type="com.sino.file.model.BalanceTrace" >
+    <id column="SerialNo" property="serialno" jdbcType="DECIMAL" />
+    <result column="AccNo" property="accno" jdbcType="VARCHAR" />
+    <result column="BalanceDate" property="balancedate" jdbcType="DATE" />
+    <result column="Interest" property="interest" jdbcType="DECIMAL" />
+    <result column="CostMoney" property="costmoney" jdbcType="DECIMAL" />
+    <result column="MakeDate" property="makedate" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    SerialNo, AccNo, BalanceDate, Interest, CostMoney, MakeDate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sino.file.model.BalanceTraceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from balancetrace
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from balancetrace
+    where SerialNo = #{serialno,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from balancetrace
+    where SerialNo = #{serialno,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sino.file.model.BalanceTraceExample" >
+    delete from balancetrace
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sino.file.model.BalanceTrace" >
+    <selectKey resultType="java.lang.Long" keyProperty="serialno" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into balancetrace (AccNo, BalanceDate, Interest, 
+      CostMoney, MakeDate)
+    values (#{accno,jdbcType=VARCHAR}, #{balancedate,jdbcType=DATE}, #{interest,jdbcType=DECIMAL}, 
+      #{costmoney,jdbcType=DECIMAL}, #{makedate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sino.file.model.BalanceTrace" >
+    <selectKey resultType="java.lang.Long" keyProperty="serialno" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into balancetrace
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="accno != null" >
+        AccNo,
+      </if>
+      <if test="balancedate != null" >
+        BalanceDate,
+      </if>
+      <if test="interest != null" >
+        Interest,
+      </if>
+      <if test="costmoney != null" >
+        CostMoney,
+      </if>
+      <if test="makedate != null" >
+        MakeDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="accno != null" >
+        #{accno,jdbcType=VARCHAR},
+      </if>
+      <if test="balancedate != null" >
+        #{balancedate,jdbcType=DATE},
+      </if>
+      <if test="interest != null" >
+        #{interest,jdbcType=DECIMAL},
+      </if>
+      <if test="costmoney != null" >
+        #{costmoney,jdbcType=DECIMAL},
+      </if>
+      <if test="makedate != null" >
+        #{makedate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sino.file.model.BalanceTraceExample" resultType="java.lang.Integer" >
+    select count(*) from balancetrace
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update balancetrace
+    <set >
+      <if test="record.serialno != null" >
+        SerialNo = #{record.serialno,jdbcType=DECIMAL},
+      </if>
+      <if test="record.accno != null" >
+        AccNo = #{record.accno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.balancedate != null" >
+        BalanceDate = #{record.balancedate,jdbcType=DATE},
+      </if>
+      <if test="record.interest != null" >
+        Interest = #{record.interest,jdbcType=DECIMAL},
+      </if>
+      <if test="record.costmoney != null" >
+        CostMoney = #{record.costmoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.makedate != null" >
+        MakeDate = #{record.makedate,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update balancetrace
+    set SerialNo = #{record.serialno,jdbcType=DECIMAL},
+      AccNo = #{record.accno,jdbcType=VARCHAR},
+      BalanceDate = #{record.balancedate,jdbcType=DATE},
+      Interest = #{record.interest,jdbcType=DECIMAL},
+      CostMoney = #{record.costmoney,jdbcType=DECIMAL},
+      MakeDate = #{record.makedate,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sino.file.model.BalanceTrace" >
+    update balancetrace
+    <set >
+      <if test="accno != null" >
+        AccNo = #{accno,jdbcType=VARCHAR},
+      </if>
+      <if test="balancedate != null" >
+        BalanceDate = #{balancedate,jdbcType=DATE},
+      </if>
+      <if test="interest != null" >
+        Interest = #{interest,jdbcType=DECIMAL},
+      </if>
+      <if test="costmoney != null" >
+        CostMoney = #{costmoney,jdbcType=DECIMAL},
+      </if>
+      <if test="makedate != null" >
+        MakeDate = #{makedate,jdbcType=DATE},
+      </if>
+    </set>
+    where SerialNo = #{serialno,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sino.file.model.BalanceTrace" >
+    update balancetrace
+    set AccNo = #{accno,jdbcType=VARCHAR},
+      BalanceDate = #{balancedate,jdbcType=DATE},
+      Interest = #{interest,jdbcType=DECIMAL},
+      CostMoney = #{costmoney,jdbcType=DECIMAL},
+      MakeDate = #{makedate,jdbcType=DATE}
+    where SerialNo = #{serialno,jdbcType=DECIMAL}
+  </update>
+</mapper>

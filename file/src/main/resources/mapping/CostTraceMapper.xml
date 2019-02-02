@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sino.file.mapper.CostTraceMapper" >
+  <resultMap id="BaseResultMap" type="com.sino.file.model.CostTrace" >
+    <id column="SerialNo" property="serialno" jdbcType="DECIMAL" />
+    <result column="BusinessNo" property="businessno" jdbcType="VARCHAR" />
+    <result column="AccNo" property="accno" jdbcType="VARCHAR" />
+    <result column="CostNo" property="costno" jdbcType="VARCHAR" />
+    <result column="CostCode" property="costcode" jdbcType="VARCHAR" />
+    <result column="CostMoney" property="costmoney" jdbcType="DECIMAL" />
+    <result column="MakeDate" property="makedate" jdbcType="DATE" />
+    <result column="CostDate" property="costdate" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    SerialNo, BusinessNo, AccNo, CostNo, CostCode, CostMoney, MakeDate, CostDate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sino.file.model.CostTraceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from costtrace
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from costtrace
+    where SerialNo = #{serialno,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from costtrace
+    where SerialNo = #{serialno,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sino.file.model.CostTraceExample" >
+    delete from costtrace
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sino.file.model.CostTrace" >
+    <selectKey resultType="java.lang.Long" keyProperty="serialno" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into costtrace (BusinessNo, AccNo, CostNo, 
+      CostCode, CostMoney, MakeDate, 
+      CostDate)
+    values (#{businessno,jdbcType=VARCHAR}, #{accno,jdbcType=VARCHAR}, #{costno,jdbcType=VARCHAR}, 
+      #{costcode,jdbcType=VARCHAR}, #{costmoney,jdbcType=DECIMAL}, #{makedate,jdbcType=DATE}, 
+      #{costdate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sino.file.model.CostTrace" >
+    <selectKey resultType="java.lang.Long" keyProperty="serialno" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into costtrace
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="businessno != null" >
+        BusinessNo,
+      </if>
+      <if test="accno != null" >
+        AccNo,
+      </if>
+      <if test="costno != null" >
+        CostNo,
+      </if>
+      <if test="costcode != null" >
+        CostCode,
+      </if>
+      <if test="costmoney != null" >
+        CostMoney,
+      </if>
+      <if test="makedate != null" >
+        MakeDate,
+      </if>
+      <if test="costdate != null" >
+        CostDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="businessno != null" >
+        #{businessno,jdbcType=VARCHAR},
+      </if>
+      <if test="accno != null" >
+        #{accno,jdbcType=VARCHAR},
+      </if>
+      <if test="costno != null" >
+        #{costno,jdbcType=VARCHAR},
+      </if>
+      <if test="costcode != null" >
+        #{costcode,jdbcType=VARCHAR},
+      </if>
+      <if test="costmoney != null" >
+        #{costmoney,jdbcType=DECIMAL},
+      </if>
+      <if test="makedate != null" >
+        #{makedate,jdbcType=DATE},
+      </if>
+      <if test="costdate != null" >
+        #{costdate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sino.file.model.CostTraceExample" resultType="java.lang.Integer" >
+    select count(*) from costtrace
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update costtrace
+    <set >
+      <if test="record.serialno != null" >
+        SerialNo = #{record.serialno,jdbcType=DECIMAL},
+      </if>
+      <if test="record.businessno != null" >
+        BusinessNo = #{record.businessno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accno != null" >
+        AccNo = #{record.accno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.costno != null" >
+        CostNo = #{record.costno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.costcode != null" >
+        CostCode = #{record.costcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.costmoney != null" >
+        CostMoney = #{record.costmoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.makedate != null" >
+        MakeDate = #{record.makedate,jdbcType=DATE},
+      </if>
+      <if test="record.costdate != null" >
+        CostDate = #{record.costdate,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update costtrace
+    set SerialNo = #{record.serialno,jdbcType=DECIMAL},
+      BusinessNo = #{record.businessno,jdbcType=VARCHAR},
+      AccNo = #{record.accno,jdbcType=VARCHAR},
+      CostNo = #{record.costno,jdbcType=VARCHAR},
+      CostCode = #{record.costcode,jdbcType=VARCHAR},
+      CostMoney = #{record.costmoney,jdbcType=DECIMAL},
+      MakeDate = #{record.makedate,jdbcType=DATE},
+      CostDate = #{record.costdate,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sino.file.model.CostTrace" >
+    update costtrace
+    <set >
+      <if test="businessno != null" >
+        BusinessNo = #{businessno,jdbcType=VARCHAR},
+      </if>
+      <if test="accno != null" >
+        AccNo = #{accno,jdbcType=VARCHAR},
+      </if>
+      <if test="costno != null" >
+        CostNo = #{costno,jdbcType=VARCHAR},
+      </if>
+      <if test="costcode != null" >
+        CostCode = #{costcode,jdbcType=VARCHAR},
+      </if>
+      <if test="costmoney != null" >
+        CostMoney = #{costmoney,jdbcType=DECIMAL},
+      </if>
+      <if test="makedate != null" >
+        MakeDate = #{makedate,jdbcType=DATE},
+      </if>
+      <if test="costdate != null" >
+        CostDate = #{costdate,jdbcType=DATE},
+      </if>
+    </set>
+    where SerialNo = #{serialno,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sino.file.model.CostTrace" >
+    update costtrace
+    set BusinessNo = #{businessno,jdbcType=VARCHAR},
+      AccNo = #{accno,jdbcType=VARCHAR},
+      CostNo = #{costno,jdbcType=VARCHAR},
+      CostCode = #{costcode,jdbcType=VARCHAR},
+      CostMoney = #{costmoney,jdbcType=DECIMAL},
+      MakeDate = #{makedate,jdbcType=DATE},
+      CostDate = #{costdate,jdbcType=DATE}
+    where SerialNo = #{serialno,jdbcType=DECIMAL}
+  </update>
+</mapper>

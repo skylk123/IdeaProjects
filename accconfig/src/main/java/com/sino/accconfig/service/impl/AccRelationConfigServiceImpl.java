@@ -1,7 +1,6 @@
 package com.sino.accconfig.service.impl;
 
-import com.sino.accconfig.dao.AccDefinitionMapper;
-import com.sino.accconfig.model.AccBalaConfigExample;
+import com.sino.accconfig.mapper.AccDefinitionMapper;
 import com.sino.accconfig.model.AccDefinition;
 import com.sino.accconfig.model.AccDefinitionExample;
 import com.sino.accconfig.service.AccRelationConfigService;
@@ -13,18 +12,18 @@ import java.util.List;
 
 @Service
 public class AccRelationConfigServiceImpl implements AccRelationConfigService {
+
     @Autowired
-    private AccDefinitionMapper mapper;
+    private AccDefinitionMapper tmap;
 
     @Override
     public ArrayList<String> getRelationByRiskcode(String riskcode) {
         AccDefinitionExample example = new AccDefinitionExample();
-        AccDefinitionExample.Criteria cri = example.createCriteria();
-        cri.andAcccodeEqualTo(riskcode);
-        List<AccDefinition> list = mapper.selectByExample(example);
+        example.createCriteria().andRiskcodeEqualTo(riskcode);
+        List<AccDefinition> list = tmap.selectByExample(example);
         ArrayList<String> acclist = new ArrayList<String>();
         list.forEach(a -> {
-            acclist.add(a.getAccname());
+            acclist.add(a.getAcctype());
         });
         return acclist;
     }

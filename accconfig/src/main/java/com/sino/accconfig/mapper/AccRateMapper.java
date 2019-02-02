@@ -1,10 +1,8 @@
-package com.sino.accconfig.dao;
+package com.sino.accconfig.mapper;
 
 import com.sino.accconfig.model.AccRate;
 import com.sino.accconfig.model.AccRateExample;
 import java.util.List;
-
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 

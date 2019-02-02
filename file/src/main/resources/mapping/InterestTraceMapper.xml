@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.sino.accconfig.dao.AccDefinitionMapper" >
-  <resultMap id="BaseResultMap" type="com.sino.accconfig.model.AccDefinition" >
-    <id column="AccCode" property="acccode" jdbcType="VARCHAR" />
-    <result column="RiskCode" property="riskcode" jdbcType="VARCHAR" />
-    <result column="Acctype" property="acctype" jdbcType="VARCHAR" />
-    <result column="AccName" property="accname" jdbcType="VARCHAR" />
-    <result column="Info" property="info" jdbcType="VARCHAR" />
+<mapper namespace="com.sino.file.mapper.InterestTraceMapper" >
+  <resultMap id="BaseResultMap" type="com.sino.file.model.InterestTrace" >
+    <id column="SerialNo" property="serialno" jdbcType="DECIMAL" />
+    <result column="BusinessNo" property="businessno" jdbcType="VARCHAR" />
+    <result column="AccNo" property="accno" jdbcType="VARCHAR" />
+    <result column="money" property="money" jdbcType="DECIMAL" />
     <result column="MakeDate" property="makedate" jdbcType="DATE" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -68,15 +67,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    AccCode, RiskCode, Acctype, AccName, Info, MakeDate
+    SerialNo, BusinessNo, AccNo, money, MakeDate
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sino.accconfig.model.AccDefinitionExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sino.file.model.InterestTraceExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from accdefinition
+    from interesttrace
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -84,96 +83,85 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
-    from accdefinition
-    where AccCode = #{acccode,jdbcType=VARCHAR}
+    from interesttrace
+    where SerialNo = #{serialno,jdbcType=DECIMAL}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from accdefinition
-    where AccCode = #{acccode,jdbcType=VARCHAR}
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from interesttrace
+    where SerialNo = #{serialno,jdbcType=DECIMAL}
   </delete>
-  <delete id="deleteByExample" parameterType="com.sino.accconfig.model.AccDefinitionExample" >
-    delete from accdefinition
+  <delete id="deleteByExample" parameterType="com.sino.file.model.InterestTraceExample" >
+    delete from interesttrace
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.sino.accconfig.model.AccDefinition" >
-    insert into accdefinition (AccCode, RiskCode, Acctype, 
-      AccName, Info, MakeDate
-      )
-    values (#{acccode,jdbcType=VARCHAR}, #{riskcode,jdbcType=VARCHAR}, #{acctype,jdbcType=VARCHAR}, 
-      #{accname,jdbcType=VARCHAR}, #{info,jdbcType=VARCHAR}, #{makedate,jdbcType=DATE}
-      )
+  <insert id="insert" parameterType="com.sino.file.model.InterestTrace" >
+    <selectKey resultType="java.lang.Long" keyProperty="serialno" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into interesttrace (BusinessNo, AccNo, money, 
+      MakeDate)
+    values (#{businessno,jdbcType=VARCHAR}, #{accno,jdbcType=VARCHAR}, #{money,jdbcType=DECIMAL}, 
+      #{makedate,jdbcType=DATE})
   </insert>
-  <insert id="insertSelective" parameterType="com.sino.accconfig.model.AccDefinition" >
-    insert into accdefinition
+  <insert id="insertSelective" parameterType="com.sino.file.model.InterestTrace" >
+    <selectKey resultType="java.lang.Long" keyProperty="serialno" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into interesttrace
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="acccode != null" >
-        AccCode,
+      <if test="businessno != null" >
+        BusinessNo,
       </if>
-      <if test="riskcode != null" >
-        RiskCode,
+      <if test="accno != null" >
+        AccNo,
       </if>
-      <if test="acctype != null" >
-        Acctype,
-      </if>
-      <if test="accname != null" >
-        AccName,
-      </if>
-      <if test="info != null" >
-        Info,
+      <if test="money != null" >
+        money,
       </if>
       <if test="makedate != null" >
         MakeDate,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="acccode != null" >
-        #{acccode,jdbcType=VARCHAR},
+      <if test="businessno != null" >
+        #{businessno,jdbcType=VARCHAR},
       </if>
-      <if test="riskcode != null" >
-        #{riskcode,jdbcType=VARCHAR},
+      <if test="accno != null" >
+        #{accno,jdbcType=VARCHAR},
       </if>
-      <if test="acctype != null" >
-        #{acctype,jdbcType=VARCHAR},
-      </if>
-      <if test="accname != null" >
-        #{accname,jdbcType=VARCHAR},
-      </if>
-      <if test="info != null" >
-        #{info,jdbcType=VARCHAR},
+      <if test="money != null" >
+        #{money,jdbcType=DECIMAL},
       </if>
       <if test="makedate != null" >
         #{makedate,jdbcType=DATE},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.sino.accconfig.model.AccDefinitionExample" resultType="java.lang.Integer" >
-    select count(*) from accdefinition
+  <select id="countByExample" parameterType="com.sino.file.model.InterestTraceExample" resultType="java.lang.Integer" >
+    select count(*) from interesttrace
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update accdefinition
+    update interesttrace
     <set >
-      <if test="record.acccode != null" >
-        AccCode = #{record.acccode,jdbcType=VARCHAR},
+      <if test="record.serialno != null" >
+        SerialNo = #{record.serialno,jdbcType=DECIMAL},
       </if>
-      <if test="record.riskcode != null" >
-        RiskCode = #{record.riskcode,jdbcType=VARCHAR},
+      <if test="record.businessno != null" >
+        BusinessNo = #{record.businessno,jdbcType=VARCHAR},
       </if>
-      <if test="record.acctype != null" >
-        Acctype = #{record.acctype,jdbcType=VARCHAR},
+      <if test="record.accno != null" >
+        AccNo = #{record.accno,jdbcType=VARCHAR},
       </if>
-      <if test="record.accname != null" >
-        AccName = #{record.accname,jdbcType=VARCHAR},
-      </if>
-      <if test="record.info != null" >
-        Info = #{record.info,jdbcType=VARCHAR},
+      <if test="record.money != null" >
+        money = #{record.money,jdbcType=DECIMAL},
       </if>
       <if test="record.makedate != null" >
         MakeDate = #{record.makedate,jdbcType=DATE},
@@ -184,45 +172,40 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update accdefinition
-    set AccCode = #{record.acccode,jdbcType=VARCHAR},
-      RiskCode = #{record.riskcode,jdbcType=VARCHAR},
-      Acctype = #{record.acctype,jdbcType=VARCHAR},
-      AccName = #{record.accname,jdbcType=VARCHAR},
-      Info = #{record.info,jdbcType=VARCHAR},
+    update interesttrace
+    set SerialNo = #{record.serialno,jdbcType=DECIMAL},
+      BusinessNo = #{record.businessno,jdbcType=VARCHAR},
+      AccNo = #{record.accno,jdbcType=VARCHAR},
+      money = #{record.money,jdbcType=DECIMAL},
       MakeDate = #{record.makedate,jdbcType=DATE}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.sino.accconfig.model.AccDefinition" >
-    update accdefinition
+  <update id="updateByPrimaryKeySelective" parameterType="com.sino.file.model.InterestTrace" >
+    update interesttrace
     <set >
-      <if test="riskcode != null" >
-        RiskCode = #{riskcode,jdbcType=VARCHAR},
+      <if test="businessno != null" >
+        BusinessNo = #{businessno,jdbcType=VARCHAR},
       </if>
-      <if test="acctype != null" >
-        Acctype = #{acctype,jdbcType=VARCHAR},
+      <if test="accno != null" >
+        AccNo = #{accno,jdbcType=VARCHAR},
       </if>
-      <if test="accname != null" >
-        AccName = #{accname,jdbcType=VARCHAR},
-      </if>
-      <if test="info != null" >
-        Info = #{info,jdbcType=VARCHAR},
+      <if test="money != null" >
+        money = #{money,jdbcType=DECIMAL},
       </if>
       <if test="makedate != null" >
         MakeDate = #{makedate,jdbcType=DATE},
       </if>
     </set>
-    where AccCode = #{acccode,jdbcType=VARCHAR}
+    where SerialNo = #{serialno,jdbcType=DECIMAL}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.sino.accconfig.model.AccDefinition" >
-    update accdefinition
-    set RiskCode = #{riskcode,jdbcType=VARCHAR},
-      Acctype = #{acctype,jdbcType=VARCHAR},
-      AccName = #{accname,jdbcType=VARCHAR},
-      Info = #{info,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="com.sino.file.model.InterestTrace" >
+    update interesttrace
+    set BusinessNo = #{businessno,jdbcType=VARCHAR},
+      AccNo = #{accno,jdbcType=VARCHAR},
+      money = #{money,jdbcType=DECIMAL},
       MakeDate = #{makedate,jdbcType=DATE}
-    where AccCode = #{acccode,jdbcType=VARCHAR}
+    where SerialNo = #{serialno,jdbcType=DECIMAL}
   </update>
 </mapper>

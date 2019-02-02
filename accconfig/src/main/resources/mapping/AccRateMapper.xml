@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.sino.accconfig.dao.AccBalaConfigMapper" >
-  <resultMap id="BaseResultMap" type="com.sino.accconfig.model.AccBalaConfig" >
+<mapper namespace="com.sino.accconfig.mapper.AccRateMapper" >
+  <resultMap id="BaseResultMap" type="com.sino.accconfig.model.AccRate" >
+    <id column="SerialNo" property="serialno" jdbcType="BIGINT" />
     <result column="AccCode" property="acccode" jdbcType="VARCHAR" />
-    <result column="BalaType" property="balatype" jdbcType="VARCHAR" />
+    <result column="Rate" property="rate" jdbcType="DECIMAL" />
+    <result column="StartDate" property="startdate" jdbcType="DATE" />
     <result column="BalaCyc" property="balacyc" jdbcType="VARCHAR" />
-    <result column="INITDate" property="initdate" jdbcType="DATE" />
-    <result column="RateType" property="ratetype" jdbcType="VARCHAR" />
+    <result column="EndDate" property="enddate" jdbcType="DATE" />
+    <result column="MakeDate" property="makedate" jdbcType="DATE" />
     <result column="GuaranteedRate" property="guaranteedrate" jdbcType="DECIMAL" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -68,15 +70,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    AccCode, BalaType, BalaCyc, INITDate, RateType, GuaranteedRate
+    SerialNo, AccCode, Rate, StartDate, BalaCyc, EndDate, MakeDate, GuaranteedRate
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sino.accconfig.model.AccBalaConfigExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sino.accconfig.model.AccRateExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from accbalaconfig
+    from accrate
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -84,86 +86,114 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.sino.accconfig.model.AccBalaConfigExample" >
-    delete from accbalaconfig
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from accrate
+    where SerialNo = #{serialno,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from accrate
+    where SerialNo = #{serialno,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sino.accconfig.model.AccRateExample" >
+    delete from accrate
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.sino.accconfig.model.AccBalaConfig" >
-    insert into accbalaconfig (AccCode, BalaType, BalaCyc, 
-      INITDate, RateType, GuaranteedRate
-      )
-    values (#{acccode,jdbcType=VARCHAR}, #{balatype,jdbcType=VARCHAR}, #{balacyc,jdbcType=VARCHAR}, 
-      #{initdate,jdbcType=DATE}, #{ratetype,jdbcType=VARCHAR}, #{guaranteedrate,jdbcType=DECIMAL}
-      )
+  <insert id="insert" parameterType="com.sino.accconfig.model.AccRate" >
+    insert into accrate (SerialNo, AccCode, Rate, 
+      StartDate, BalaCyc, EndDate, 
+      MakeDate, GuaranteedRate)
+    values (#{serialno,jdbcType=BIGINT}, #{acccode,jdbcType=VARCHAR}, #{rate,jdbcType=DECIMAL}, 
+      #{startdate,jdbcType=DATE}, #{balacyc,jdbcType=VARCHAR}, #{enddate,jdbcType=DATE}, 
+      #{makedate,jdbcType=DATE}, #{guaranteedrate,jdbcType=DECIMAL})
   </insert>
-  <insert id="insertSelective" parameterType="com.sino.accconfig.model.AccBalaConfig" >
-    insert into accbalaconfig
+  <insert id="insertSelective" parameterType="com.sino.accconfig.model.AccRate" >
+    insert into accrate
     <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="serialno != null" >
+        SerialNo,
+      </if>
       <if test="acccode != null" >
         AccCode,
       </if>
-      <if test="balatype != null" >
-        BalaType,
+      <if test="rate != null" >
+        Rate,
+      </if>
+      <if test="startdate != null" >
+        StartDate,
       </if>
       <if test="balacyc != null" >
         BalaCyc,
       </if>
-      <if test="initdate != null" >
-        INITDate,
+      <if test="enddate != null" >
+        EndDate,
       </if>
-      <if test="ratetype != null" >
-        RateType,
+      <if test="makedate != null" >
+        MakeDate,
       </if>
       <if test="guaranteedrate != null" >
         GuaranteedRate,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="serialno != null" >
+        #{serialno,jdbcType=BIGINT},
+      </if>
       <if test="acccode != null" >
         #{acccode,jdbcType=VARCHAR},
       </if>
-      <if test="balatype != null" >
-        #{balatype,jdbcType=VARCHAR},
+      <if test="rate != null" >
+        #{rate,jdbcType=DECIMAL},
+      </if>
+      <if test="startdate != null" >
+        #{startdate,jdbcType=DATE},
       </if>
       <if test="balacyc != null" >
         #{balacyc,jdbcType=VARCHAR},
       </if>
-      <if test="initdate != null" >
-        #{initdate,jdbcType=DATE},
+      <if test="enddate != null" >
+        #{enddate,jdbcType=DATE},
       </if>
-      <if test="ratetype != null" >
-        #{ratetype,jdbcType=VARCHAR},
+      <if test="makedate != null" >
+        #{makedate,jdbcType=DATE},
       </if>
       <if test="guaranteedrate != null" >
         #{guaranteedrate,jdbcType=DECIMAL},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.sino.accconfig.model.AccBalaConfigExample" resultType="java.lang.Integer" >
-    select count(*) from accbalaconfig
+  <select id="countByExample" parameterType="com.sino.accconfig.model.AccRateExample" resultType="java.lang.Integer" >
+    select count(*) from accrate
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update accbalaconfig
+    update accrate
     <set >
+      <if test="record.serialno != null" >
+        SerialNo = #{record.serialno,jdbcType=BIGINT},
+      </if>
       <if test="record.acccode != null" >
         AccCode = #{record.acccode,jdbcType=VARCHAR},
       </if>
-      <if test="record.balatype != null" >
-        BalaType = #{record.balatype,jdbcType=VARCHAR},
+      <if test="record.rate != null" >
+        Rate = #{record.rate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.startdate != null" >
+        StartDate = #{record.startdate,jdbcType=DATE},
       </if>
       <if test="record.balacyc != null" >
         BalaCyc = #{record.balacyc,jdbcType=VARCHAR},
       </if>
-      <if test="record.initdate != null" >
-        INITDate = #{record.initdate,jdbcType=DATE},
+      <if test="record.enddate != null" >
+        EndDate = #{record.enddate,jdbcType=DATE},
       </if>
-      <if test="record.ratetype != null" >
-        RateType = #{record.ratetype,jdbcType=VARCHAR},
+      <if test="record.makedate != null" >
+        MakeDate = #{record.makedate,jdbcType=DATE},
       </if>
       <if test="record.guaranteedrate != null" >
         GuaranteedRate = #{record.guaranteedrate,jdbcType=DECIMAL},
@@ -174,15 +204,55 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update accbalaconfig
-    set AccCode = #{record.acccode,jdbcType=VARCHAR},
-      BalaType = #{record.balatype,jdbcType=VARCHAR},
+    update accrate
+    set SerialNo = #{record.serialno,jdbcType=BIGINT},
+      AccCode = #{record.acccode,jdbcType=VARCHAR},
+      Rate = #{record.rate,jdbcType=DECIMAL},
+      StartDate = #{record.startdate,jdbcType=DATE},
       BalaCyc = #{record.balacyc,jdbcType=VARCHAR},
-      INITDate = #{record.initdate,jdbcType=DATE},
-      RateType = #{record.ratetype,jdbcType=VARCHAR},
+      EndDate = #{record.enddate,jdbcType=DATE},
+      MakeDate = #{record.makedate,jdbcType=DATE},
       GuaranteedRate = #{record.guaranteedrate,jdbcType=DECIMAL}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sino.accconfig.model.AccRate" >
+    update accrate
+    <set >
+      <if test="acccode != null" >
+        AccCode = #{acccode,jdbcType=VARCHAR},
+      </if>
+      <if test="rate != null" >
+        Rate = #{rate,jdbcType=DECIMAL},
+      </if>
+      <if test="startdate != null" >
+        StartDate = #{startdate,jdbcType=DATE},
+      </if>
+      <if test="balacyc != null" >
+        BalaCyc = #{balacyc,jdbcType=VARCHAR},
+      </if>
+      <if test="enddate != null" >
+        EndDate = #{enddate,jdbcType=DATE},
+      </if>
+      <if test="makedate != null" >
+        MakeDate = #{makedate,jdbcType=DATE},
+      </if>
+      <if test="guaranteedrate != null" >
+        GuaranteedRate = #{guaranteedrate,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where SerialNo = #{serialno,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sino.accconfig.model.AccRate" >
+    update accrate
+    set AccCode = #{acccode,jdbcType=VARCHAR},
+      Rate = #{rate,jdbcType=DECIMAL},
+      StartDate = #{startdate,jdbcType=DATE},
+      BalaCyc = #{balacyc,jdbcType=VARCHAR},
+      EndDate = #{enddate,jdbcType=DATE},
+      MakeDate = #{makedate,jdbcType=DATE},
+      GuaranteedRate = #{guaranteedrate,jdbcType=DECIMAL}
+    where SerialNo = #{serialno,jdbcType=BIGINT}
   </update>
 </mapper>

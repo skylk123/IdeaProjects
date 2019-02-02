@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sino.accconfig.mapper.AccDefinitionMapper" >
+  <resultMap id="BaseResultMap" type="com.sino.accconfig.model.AccDefinition" >
+    <id column="AccCode" property="acccode" jdbcType="VARCHAR" />
+    <result column="RiskCode" property="riskcode" jdbcType="VARCHAR" />
+    <result column="Acctype" property="acctype" jdbcType="VARCHAR" />
+    <result column="AccName" property="accname" jdbcType="VARCHAR" />
+    <result column="Info" property="info" jdbcType="VARCHAR" />
+    <result column="MakeDate" property="makedate" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    AccCode, RiskCode, Acctype, AccName, Info, MakeDate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sino.accconfig.model.AccDefinitionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from accdefinition
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from accdefinition
+    where AccCode = #{acccode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from accdefinition
+    where AccCode = #{acccode,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sino.accconfig.model.AccDefinitionExample" >
+    delete from accdefinition
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sino.accconfig.model.AccDefinition" >
+    insert into accdefinition (AccCode, RiskCode, Acctype, 
+      AccName, Info, MakeDate
+      )
+    values (#{acccode,jdbcType=VARCHAR}, #{riskcode,jdbcType=VARCHAR}, #{acctype,jdbcType=VARCHAR}, 
+      #{accname,jdbcType=VARCHAR}, #{info,jdbcType=VARCHAR}, #{makedate,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sino.accconfig.model.AccDefinition" >
+    insert into accdefinition
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="acccode != null" >
+        AccCode,
+      </if>
+      <if test="riskcode != null" >
+        RiskCode,
+      </if>
+      <if test="acctype != null" >
+        Acctype,
+      </if>
+      <if test="accname != null" >
+        AccName,
+      </if>
+      <if test="info != null" >
+        Info,
+      </if>
+      <if test="makedate != null" >
+        MakeDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="acccode != null" >
+        #{acccode,jdbcType=VARCHAR},
+      </if>
+      <if test="riskcode != null" >
+        #{riskcode,jdbcType=VARCHAR},
+      </if>
+      <if test="acctype != null" >
+        #{acctype,jdbcType=VARCHAR},
+      </if>
+      <if test="accname != null" >
+        #{accname,jdbcType=VARCHAR},
+      </if>
+      <if test="info != null" >
+        #{info,jdbcType=VARCHAR},
+      </if>
+      <if test="makedate != null" >
+        #{makedate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sino.accconfig.model.AccDefinitionExample" resultType="java.lang.Integer" >
+    select count(*) from accdefinition
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update accdefinition
+    <set >
+      <if test="record.acccode != null" >
+        AccCode = #{record.acccode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.riskcode != null" >
+        RiskCode = #{record.riskcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.acctype != null" >
+        Acctype = #{record.acctype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accname != null" >
+        AccName = #{record.accname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.info != null" >
+        Info = #{record.info,jdbcType=VARCHAR},
+      </if>
+      <if test="record.makedate != null" >
+        MakeDate = #{record.makedate,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update accdefinition
+    set AccCode = #{record.acccode,jdbcType=VARCHAR},
+      RiskCode = #{record.riskcode,jdbcType=VARCHAR},
+      Acctype = #{record.acctype,jdbcType=VARCHAR},
+      AccName = #{record.accname,jdbcType=VARCHAR},
+      Info = #{record.info,jdbcType=VARCHAR},
+      MakeDate = #{record.makedate,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sino.accconfig.model.AccDefinition" >
+    update accdefinition
+    <set >
+      <if test="riskcode != null" >
+        RiskCode = #{riskcode,jdbcType=VARCHAR},
+      </if>
+      <if test="acctype != null" >
+        Acctype = #{acctype,jdbcType=VARCHAR},
+      </if>
+      <if test="accname != null" >
+        AccName = #{accname,jdbcType=VARCHAR},
+      </if>
+      <if test="info != null" >
+        Info = #{info,jdbcType=VARCHAR},
+      </if>
+      <if test="makedate != null" >
+        MakeDate = #{makedate,jdbcType=DATE},
+      </if>
+    </set>
+    where AccCode = #{acccode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sino.accconfig.model.AccDefinition" >
+    update accdefinition
+    set RiskCode = #{riskcode,jdbcType=VARCHAR},
+      Acctype = #{acctype,jdbcType=VARCHAR},
+      AccName = #{accname,jdbcType=VARCHAR},
+      Info = #{info,jdbcType=VARCHAR},
+      MakeDate = #{makedate,jdbcType=DATE}
+    where AccCode = #{acccode,jdbcType=VARCHAR}
+  </update>
+</mapper>
